@@ -1,40 +1,56 @@
-import FontAwesome from '@expo/vector-icons/FontAwesome';
-import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
-import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
-import { Tabs } from "expo-router";
-import { Button, View } from "react-native";
+import { Stack } from "expo-router";
 
 export default function RootLayout() {
   return (
-    <Tabs>
-      <Tabs.Screen
-        name="compra"
+    <Stack>
+      <Stack.Screen
+        name="login"
         options={{
-          title: 'Compra',
-          tabBarIcon: ({ color, focused }) => (
-            <FontAwesome6 name="list-check" size={24} color="black" />
-          ),
-        }} 
-      />
-      <Tabs.Screen
-        name="lista"
-        options={{
-          title: 'Lista',
-          tabBarIcon: ({ color, focused }) => (
-            <FontAwesome5 name="clipboard-list" size={24} color="black" />
-          ),
+          headerShown: false
         }}
       />
-      <Tabs.Screen
-        name="dispensa"
+      <Stack.Screen
+        name="cadastro"
         options={{
-          title: 'Dispensa',
-          tabBarIcon: ({ color, focused }) => (
-            <FontAwesome name="list" size={24} color="black" />
-          ),
-          headerRight: () => <View style={{ paddingRight: 15 }}><Button title='+' /></View>
+          title: "Cadastro",
+          headerShown: false
         }}
       />
-    </Tabs>
+      <Stack.Screen
+        name="home"
+        options={{
+          title: "Início",
+          headerShown: false
+        }}
+      />
+      <Stack.Screen
+        name="agendamento"
+        options={{
+          title: "Agendamento",
+          headerShown: false
+        }}
+      />
+      <Stack.Screen
+        name="meus-agendamentos"
+        options={{
+          title: "Meus Agendamentos",
+          headerShown: false
+        }}
+      />
+      <Stack.Screen
+        name="confirmacao"
+        options={{
+          title: "Confirmação",
+          headerShown: false
+        }}
+      />
+      <Stack.Screen
+        name="servico"
+        options={{
+          title: "Serviço",
+          headerShown: false
+        }}
+      />
+    </Stack>
   );
 }
