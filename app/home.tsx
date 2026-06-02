@@ -1,7 +1,7 @@
-import React from "react";
-import { View, Text, Pressable, ScrollView, Image } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
+import React from "react";
+import { Image, Pressable, ScrollView, Text, View } from "react-native";
 
 export default function Home() {
   const router = useRouter();
@@ -17,8 +17,7 @@ export default function Home() {
 
   return (
     <View style={{ flex: 1, backgroundColor: "#c8d8ee" }}>
-      
-      {/* HEADER */}
+  
       <View
         style={{
           flexDirection: "row",
@@ -91,7 +90,6 @@ export default function Home() {
             O que deseja hoje?
           </Text>
 
-          {/* CARD PRINCIPAL */}
           <View
             style={{
               backgroundColor: "#1e4a7c",
@@ -142,7 +140,6 @@ export default function Home() {
             </Pressable>
           </View>
 
-          {/* SERVIÇOS */}
           <Text
             style={{
               fontSize: 14,
@@ -212,7 +209,6 @@ export default function Home() {
             ))}
           </View>
 
-          {/* ENDEREÇO E CONTATO */}
           <View
             style={{
               flexDirection: "row",
@@ -294,7 +290,6 @@ export default function Home() {
         </View>
       </ScrollView>
 
-      {/* MENU INFERIOR */}
       <View
         style={{
           flexDirection: "row",
@@ -321,7 +316,7 @@ export default function Home() {
 
         <Pressable
           style={{ alignItems: "center" }}
-          onPress={() => router.push("/meus-agendamentos")}
+          //onPress={() => router.push("/meus-agendamentos")}
         >
           <Ionicons
             name="calendar-outline"

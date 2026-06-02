@@ -18,7 +18,7 @@ export default function EscolhaServico() {
       Alert.alert("Atenção", "Selecione um serviço para continuar.");
       return;
     }
-    router.push("/agendar/horario");
+    //router.push("/agendar/horario");
   }
 
   return (
