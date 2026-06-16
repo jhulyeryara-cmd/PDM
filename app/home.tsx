@@ -1,10 +1,29 @@
 import { Ionicons } from "@expo/vector-icons";
-import { useRouter } from "expo-router";
+
+import {
+  useLocalSearchParams,
+  useRouter,
+} from "expo-router";
+
 import React from "react";
-import { Image, Pressable, ScrollView, Text, View } from "react-native";
+
+import {
+  Image,
+  Pressable,
+  ScrollView,
+  Text,
+  View,
+} from "react-native";
 
 export default function Home() {
+
   const router = useRouter();
+
+  const params = useLocalSearchParams();
+
+  const nome = params.nome as string;
+
+  const email = params.email as string;
 
   const servicos = [
     { nome: "Alongamento", imagem: require("../img/alongamento.png") },
@@ -16,8 +35,9 @@ export default function Home() {
   ];
 
   return (
+
     <View style={{ flex: 1, backgroundColor: "#c8d8ee" }}>
-  
+
       <View
         style={{
           flexDirection: "row",
@@ -28,12 +48,21 @@ export default function Home() {
           paddingVertical: 14,
         }}
       >
-        <View style={{ flexDirection: "row", alignItems: "center", gap: 6 }}>
+
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            gap: 6,
+          }}
+        >
+
           <Ionicons
             name="sparkles-outline"
             size={20}
             color="#185fa5"
           />
+
           <Text
             style={{
               fontSize: 16,
@@ -43,26 +72,32 @@ export default function Home() {
           >
             Williane Nails
           </Text>
+
         </View>
 
         <View style={{ flexDirection: "row", gap: 10 }}>
+
           <Ionicons
             name="notifications-outline"
             size={20}
             color="#1a3a5c"
           />
+
           <Ionicons
             name="person-outline"
             size={20}
             color="#1a3a5c"
           />
+
         </View>
+
       </View>
 
       <ScrollView
         style={{ flex: 1 }}
         showsVerticalScrollIndicator={false}
       >
+
         <View
           style={{
             paddingHorizontal: 20,
@@ -70,6 +105,7 @@ export default function Home() {
             paddingBottom: 20,
           }}
         >
+
           <Text
             style={{
               fontSize: 13,
@@ -98,6 +134,7 @@ export default function Home() {
               marginTop: 14,
             }}
           >
+
             <Text
               style={{
                 fontSize: 12,
@@ -128,6 +165,7 @@ export default function Home() {
               }}
               onPress={() => router.push("/agendamento")}
             >
+
               <Text
                 style={{
                   color: "#1e4a7c",
@@ -137,7 +175,9 @@ export default function Home() {
               >
                 Agendar
               </Text>
+
             </Pressable>
+
           </View>
 
           <Text
@@ -159,7 +199,9 @@ export default function Home() {
               marginTop: 10,
             }}
           >
+
             {servicos.map((s) => (
+
               <Pressable
                 key={s.nome}
                 style={{
@@ -174,6 +216,7 @@ export default function Home() {
                 }}
                 onPress={() => router.push("/servico")}
               >
+
                 <View
                   style={{
                     width: 48,
@@ -184,6 +227,7 @@ export default function Home() {
                     justifyContent: "center",
                   }}
                 >
+
                   <Image
                     source={s.imagem}
                     style={{
@@ -192,6 +236,7 @@ export default function Home() {
                     }}
                     resizeMode="contain"
                   />
+
                 </View>
 
                 <Text
@@ -205,8 +250,11 @@ export default function Home() {
                 >
                   {s.nome}
                 </Text>
+
               </Pressable>
+
             ))}
+
           </View>
 
           <View
@@ -216,7 +264,9 @@ export default function Home() {
               marginTop: 10,
             }}
           >
+
             <View style={{ flex: 1 }}>
+
               <View
                 style={{
                   flexDirection: "row",
@@ -224,11 +274,13 @@ export default function Home() {
                   gap: 4,
                 }}
               >
+
                 <Ionicons
                   name="location-outline"
                   size={13}
                   color="#185fa5"
                 />
+
                 <Text
                   style={{
                     fontSize: 12,
@@ -238,6 +290,7 @@ export default function Home() {
                 >
                   Endereço
                 </Text>
+
               </View>
 
               <Text
@@ -250,9 +303,11 @@ export default function Home() {
                 Nova Brasília – Pocinhos, PB{"\n"}
                 CEP: 58150-000
               </Text>
+
             </View>
 
             <View style={{ flex: 1 }}>
+
               <View
                 style={{
                   flexDirection: "row",
@@ -260,11 +315,13 @@ export default function Home() {
                   gap: 4,
                 }}
               >
+
                 <Ionicons
                   name="call-outline"
                   size={13}
                   color="#185fa5"
                 />
+
                 <Text
                   style={{
                     fontSize: 12,
@@ -274,6 +331,7 @@ export default function Home() {
                 >
                   Contato
                 </Text>
+
               </View>
 
               <Text
@@ -285,9 +343,13 @@ export default function Home() {
                 (83) 9419-3560{"\n"}
                 willianefarias@gmail.com
               </Text>
+
             </View>
+
           </View>
+
         </View>
+
       </ScrollView>
 
       <View
@@ -298,12 +360,15 @@ export default function Home() {
           paddingVertical: 10,
         }}
       >
+
         <View style={{ alignItems: "center" }}>
+
           <Ionicons
             name="home"
             size={20}
             color="#185fa5"
           />
+
           <Text
             style={{
               fontSize: 10,
@@ -312,17 +377,19 @@ export default function Home() {
           >
             Início
           </Text>
+
         </View>
 
         <Pressable
           style={{ alignItems: "center" }}
-          //onPress={() => router.push("/meus-agendamentos")}
         >
+
           <Ionicons
             name="calendar-outline"
             size={20}
             color="#aaa"
           />
+
           <Text
             style={{
               fontSize: 10,
@@ -331,17 +398,34 @@ export default function Home() {
           >
             Agenda
           </Text>
+
         </Pressable>
 
         <Pressable
           style={{ alignItems: "center" }}
-          onPress={() => router.push("/cadastro")}
+
+          onPress={() =>
+
+            router.push({
+
+              pathname: "/perfil",
+
+              params: {
+                nome: nome,
+                email: email,
+              },
+
+            })
+
+          }
         >
+
           <Ionicons
             name="person-outline"
             size={20}
             color="#aaa"
           />
+
           <Text
             style={{
               fontSize: 10,
@@ -350,8 +434,11 @@ export default function Home() {
           >
             Perfil
           </Text>
+
         </Pressable>
+
       </View>
+
     </View>
   );
 }
