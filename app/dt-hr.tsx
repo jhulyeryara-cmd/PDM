@@ -5,62 +5,125 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
+  Alert,
 } from "react-native";
-import { Calendar } from "react-native-calendars";
-import { useRouter } from "expo-router";
+
+import { Calendar, LocaleConfig } from "react-native-calendars";
+import { useRouter, useLocalSearchParams } from "expo-router";
+
+LocaleConfig.locales["pt-br"] = {
+  monthNames: [
+    "Janeiro",
+    "Fevereiro",
+    "Março",
+    "Abril",
+    "Maio",
+    "Junho",
+    "Julho",
+    "Agosto",
+    "Setembro",
+    "Outubro",
+    "Novembro",
+    "Dezembro",
+  ],
+
+  monthNamesShort: [
+    "Jan",
+    "Fev",
+    "Mar",
+    "Abr",
+    "Mai",
+    "Jun",
+    "Jul",
+    "Ago",
+    "Set",
+    "Out",
+    "Nov",
+    "Dez",
+  ],
+
+  dayNames: [
+    "Domingo",
+    "Segunda",
+    "Terça",
+    "Quarta",
+    "Quinta",
+    "Sexta",
+    "Sábado",
+  ],
+
+  dayNamesShort: ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sab"],
+
+  today: "Hoje",
+};
+
+LocaleConfig.defaultLocale = "pt-br";
 
 export default function DataHora() {
-  const router = useRouter();
+  const rota = useRouter();
+
+  const params = useLocalSearchParams();
+
+  const servico = params.servico as string || "Não informado";
+  const pagamento = params.pagamento as string || "Não informado";
 
   const [dataSelecionada, setDataSelecionada] = useState("");
   const [horarioSelecionado, setHorarioSelecionado] = useState("");
 
   const horarios = [
-    "09:00",
-    "09:30",
-    "10:00",
-    "10:30",
-    "11:00",
-    "11:30",
+    "08:30",
+    "13:00",
     "14:00",
-    "14:30",
-    "15:00",
-    "15:30",
-    "16:00",
-    "16:30",
   ];
 
   function continuar() {
+
     if (!dataSelecionada || !horarioSelecionado) {
-      alert("Selecione uma data e um horário.");
+      Alert.alert(
+        "Aviso",
+        "Selecione uma data e um horário."
+      );
+
       return;
     }
 
-    router.push({
+    rota.push({
       pathname: "/confirmacao",
+
       params: {
         data: dataSelecionada,
         horario: horarioSelecionado,
+        servico: servico,
+        pagamento: pagamento,
       },
     });
   }
 
   return (
     <ScrollView style={styles.container}>
-      <Text style={styles.titulo}>Data & Hora</Text>
 
-      <Text style={styles.subtitulo}>Quando você prefere?</Text>
+      <Text style={styles.titulo}>
+        Data & Hora
+      </Text>
+
+      <Text style={styles.subtitulo}>
+        Quando você prefere?
+      </Text>
 
       <Calendar
-        onDayPress={(day) => {
-          setDataSelecionada(day.dateString);
+        minDate={new Date().toISOString().split("T")[0]}
+
+        onDayPress={(dia) => {
+          setDataSelecionada(dia.dateString);
         }}
+
         markedDates={{
           [dataSelecionada]: {
             selected: true,
             selectedColor: "#7B84A6",
           },
         }}
+
         theme={{
           todayTextColor: "#7B84A6",
           arrowColor: "#7B84A6",
@@ -68,40 +131,60 @@ export default function DataHora() {
         }}
       />
 
-      <Text style={styles.horarioTitulo}>Horários disponíveis</Text>
+      <Text style={styles.horarioTitulo}>
+        Horários disponíveis
+      </Text>
 
       <View style={styles.gradeHorarios}>
+
         {horarios.map((horario) => (
+
           <TouchableOpacity
             key={horario}
+
             style={[
               styles.botaoHorario,
+
               horarioSelecionado === horario &&
                 styles.botaoHorarioSelecionado,
             ]}
+
             onPress={() => setHorarioSelecionado(horario)}
           >
+
             <Text
               style={[
                 styles.textoHorario,
+
                 horarioSelecionado === horario &&
                   styles.textoHorarioSelecionado,
               ]}
             >
               {horario}
             </Text>
+
           </TouchableOpacity>
         ))}
+
       </View>
 
-      <TouchableOpacity style={styles.botaoProximo} onPress={continuar}>
-        <Text style={styles.textoProximo}>Próximo</Text>
+      <TouchableOpacity
+        style={styles.botaoProximo}
+        onPress={continuar}
+      >
+
+        <Text style={styles.textoProximo}>
+          Próximo
+        </Text>
+
       </TouchableOpacity>
+
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
+
   container: {
     flex: 1,
     backgroundColor: "#E9EDF8",
@@ -111,16 +194,16 @@ const styles = StyleSheet.create({
   titulo: {
     fontSize: 24,
     fontWeight: "bold",
+    color: "#27304D",
     marginTop: 40,
     marginBottom: 20,
-    color: "#27304D",
   },
 
   subtitulo: {
     fontSize: 18,
     fontWeight: "600",
-    marginBottom: 15,
     color: "#27304D",
+    marginBottom: 15,
   },
 
   horarioTitulo: {
@@ -133,17 +216,17 @@ const styles = StyleSheet.create({
 
   gradeHorarios: {
     flexDirection: "row",
-    flexWrap: "wrap",
     justifyContent: "space-between",
+    flexWrap: "wrap",
   },
 
   botaoHorario: {
     width: "30%",
-    backgroundColor: "#FFFFFF",
-    paddingVertical: 15,
+    backgroundColor: "#FFF",
+    paddingVertical: 16,
     borderRadius: 12,
-    marginBottom: 12,
     alignItems: "center",
+    marginBottom: 12,
   },
 
   botaoHorarioSelecionado: {
@@ -152,25 +235,26 @@ const styles = StyleSheet.create({
 
   textoHorario: {
     color: "#27304D",
-    fontWeight: "500",
+    fontWeight: "600",
   },
 
   textoHorarioSelecionado: {
-    color: "#FFFFFF",
+    color: "#FFF",
   },
 
   botaoProximo: {
-    marginTop: 25,
-    marginBottom: 40,
     backgroundColor: "#7B84A6",
-    paddingVertical: 18,
+    padding: 18,
     borderRadius: 15,
     alignItems: "center",
+    marginTop: 25,
+    marginBottom: 40,
   },
 
   textoProximo: {
-    color: "#FFFFFF",
+    color: "#FFF",
     fontSize: 16,
     fontWeight: "bold",
   },
+
 });
